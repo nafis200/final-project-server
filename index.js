@@ -59,12 +59,18 @@ const client = new MongoClient(uri, {
     const cartCollection = client.db("BistroDB").collection("carts")
     const userCollection = client.db("BistroDB").collection("users")
 
-    app.post('/jwt',async(req,res)=>{
-       const user = req.body 
-       const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET ,{expiresIn: '1000h'})
-       res
-       .cookie('token',token,cookieOptions)
-       .send({success: true}) 
+    // app.post('/jwt',async(req,res)=>{
+    //    const user = req.body 
+    //    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET ,{expiresIn: '1000h'})
+    //    res
+    //    .cookie('token',token,cookieOptions)
+    //    .send({success: true}) 
+    // })
+
+    app.post('/jwt', async (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+      res.send({ token });
     })
 
     app.post('/logout',async(req,res)=>{
