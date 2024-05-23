@@ -102,6 +102,7 @@ const client = new MongoClient(uri, {
         }
      }
      const result = await userCollection.updateOne(filter,updateDoc)
+     res.send(result)
 
  })
   
