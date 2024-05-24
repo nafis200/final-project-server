@@ -148,6 +148,17 @@ const client = new MongoClient(uri, {
       const result = await cursor.toArray()
       res.send(result)
     })
+
+    app.delete('/menu/:id', verifyToken,verifyAdmin, async(req,res)=>{
+    
+       const id = req.params.id;
+       console.log(id,'backend id');
+       const query = {
+        _id: new ObjectId(id) 
+      }
+      const result = await menuCollection.deleteOne(query)
+       res.send(result)
+    })
     app.get('/reviews',async(req,res)=>{
       const cursor = reviewCollection.find()
       const result = await cursor.toArray()
